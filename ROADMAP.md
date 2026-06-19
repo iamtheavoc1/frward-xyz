@@ -1,45 +1,59 @@
 ---
-title: "Provider Requests & Known Limitations"
+title: "Roadmap"
 labels: ["pinned"]
 ---
 
-## 🗺️ frward roadmap — provider requests and known gaps
+## frward roadmap
 
-This issue is pinned to track requested providers and known limitations.
+This document tracks public roadmap items, requested provider areas, and known product gaps.
 
----
+## Current focus
 
-### 🔜 In progress
+- Provider connector stability
+- Secure credential connection flow
+- Unified model registry
+- Dashboard provider management
+- Compatible routing surfaces
+- Provider failover
+- Live provider smoke tests
+- Public beta preparation
 
-| Provider | Auth mode | Notes |
-|----------|-----------|-------|
-| Anthropic OAuth (Max/Pro) | OAuth | Waiting on Anthropic official OAuth approval |
+## In progress
 
----
+| Area | Status | Notes |
+|---|---|---|
+| Anthropic Max/Pro quota connect | Waiting | Requires an official subscription-compatible OAuth/gateway path. API-key mode is separate and uses API credits. |
+| Provider model discovery | In progress | Model catalogs should be discovered or synced dynamically where providers support it. |
+| Billing mode labels | In progress | Dashboard should clearly show API credits, subscription quota, external provider billing, or self-hosted mode. |
 
-### 📋 Provider request template
+## Planned
 
-Want a new provider? Comment on this issue with:
+- Usage analytics
+- Model capability filters
+- Provider health tracking
+- Team accounts
+- Billing tiers
+- Local helper client
+- Additional provider connectors
+- Custom provider adapters
 
-```
+## Provider requests
+
+Use the Provider Request issue template.
+
+Helpful details:
+
+```text
 Provider: [name]
 Website: [URL]
 Auth mode: [API key / OAuth / SAML / other]
 Status: [public beta / general availability / invite-only]
+Required modalities: [text / image / STT / TTS / tools / other]
 Use case: [what you'd use it for]
 ```
 
----
+## Known limitations
 
-### ⚠️ Known limitations
+Known limitations are tracked in [`KNOWN-LIMITATIONS.md`](./KNOWN-LIMITATIONS.md).
 
-| Limitation | Impact | Workaround |
-|-------------|--------|------------|
-| Anthropic Max/Pro OAuth not yet available | Subscription quota passthrough requires API key (uses API credits instead) | Use Claude Code's direct login until OAuth is approved |
-| Ollama requires manual model config | frward can't auto-discover local Ollama models | Set `OLLAMA_HOST` to your Ollama endpoint |
-| AWS Bedrock / Azure OpenAI require manual credential setup | These providers use external billing consoles | Configure credentials in the respective cloud consoles |
-| Live smoke tests require real API keys | CI runs only mocked tests | Set env vars locally to run live tests: `npm run test:live` |
-
----
-
-*This issue is updated as providers are added and limitations are resolved.*
+Key current limitation: Anthropic API-key mode does **not** prove or use Claude Max/Pro subscription quota. API-key mode uses Anthropic API credits/API billing. Subscription quota requires a valid subscription-compatible flow.
